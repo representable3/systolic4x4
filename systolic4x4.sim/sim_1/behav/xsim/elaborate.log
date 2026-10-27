@@ -1,0 +1,29 @@
+Vivado Simulator v2025.1.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /opt/xilinx-full/2025.1/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L unisims_ver -L secureip -L hnicx -L cpm5n --snapshot systolic4x4_tb_behav xil_defaultlib.systolic4x4_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.sa_pkg
+Compiling package std.std
+Compiling module xil_defaultlib.drv_cb
+Compiling module xil_defaultlib.mon_cb
+Compiling module xil_defaultlib.sa_if_default
+Compiling module xil_defaultlib.delay_line(DEPTH=0)
+Compiling module xil_defaultlib.delay_line_default
+Compiling module xil_defaultlib.delay_line(DEPTH=2)
+Compiling module xil_defaultlib.delay_line(DEPTH=3)
+Compiling module xil_defaultlib.pe
+Compiling module xil_defaultlib.delay_line(WIDTH=32,DEPTH=3)
+Compiling module xil_defaultlib.delay_line(WIDTH=32,DEPTH=2)
+Compiling module xil_defaultlib.delay_line(WIDTH=32)
+Compiling module xil_defaultlib.delay_line(WIDTH=32,DEPTH=0)
+Compiling module xil_defaultlib.systolic4x4_default
+Compiling module xil_defaultlib.systolic4x4_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot systolic4x4_tb_behav

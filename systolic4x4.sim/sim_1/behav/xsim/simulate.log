@@ -1,0 +1,6 @@
+Time resolution is 1 ps
+systolic4x4_tb: 4x4 array, int8 x int8 -> int32, 200 weight sets
+-------------------------------------------------------------
+ PASS  3319/3319 vectors correct, 200 weight loads, 100.6 us sim time
+-------------------------------------------------------------
+$finish called at time : 100585 ns : File "/home/lr587/systolic4x4/systolic4x4.srcs/sim_1/new/systolic4x4_tb.sv" Line 534

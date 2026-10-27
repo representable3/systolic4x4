@@ -1,0 +1,12 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../../../opt/xilinx-full/2025.1/data/rsb/busdef" \
+"../../../../systolic4x4.srcs/sources_1/new/systolic4x4.v" \
+
+sv xil_defaultlib  --include "../../../../../../../opt/xilinx-full/2025.1/data/rsb/busdef" \
+"../../../../systolic4x4.srcs/sim_1/new/systolic4x4_tb.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

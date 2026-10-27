@@ -1,0 +1,4 @@
+Running: xsim.dir/systolic4x4_tb_behav/xsimk -simmode gui -wdb systolic4x4_tb_behav.wdb -simrunnum 0 -socket 58195
+Design successfully loaded
+Design Loading Memory Usage: 401208 KB (Peak: 401208 KB)
+Design Loading CPU Usage: 1460 ms
