@@ -126,7 +126,9 @@ endmodule
 //   a_out <= a_in                   (pass activation right)
 //   w_out <= w_in when w_shift      (shadow weight shift chain)
 //   weight <= w_out when w_load     (latch shadow into active weight)
+//   use_dsp maps the MAC (multiply + accumulate + p_out register) to a DSP58.
 //------------------------------------------------------------------------------
+(* use_dsp = "yes" *)
 module pe #(
     parameter DATA_W = 8,
     parameter ACC_W  = 32
