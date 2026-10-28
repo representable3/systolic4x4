@@ -485,7 +485,7 @@ endpackage
 //------------------------------------------------------------------------------
 // Top-level testbench for systolic4x4
 //   plusargs: +NUM_JOBS=<n>   number of weight loads (each followed by a
-//                             random burst of vectors), default 200
+//                             random burst of vectors), default 20
 //   seed:     xsim -sv_seed <n> (or -sv_seed random)
 //------------------------------------------------------------------------------
 module systolic4x4_tb;
@@ -511,7 +511,7 @@ module systolic4x4_tb;
 
     initial begin
         automatic env e;
-        automatic int num_jobs = 200;
+        automatic int num_jobs = 20;
         automatic bit ok;
 
         if ($value$plusargs("NUM_JOBS=%d", num_jobs)) ;

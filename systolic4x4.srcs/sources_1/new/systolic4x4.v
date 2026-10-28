@@ -27,7 +27,7 @@
 //   Data format: signed two's complement. Vectors are packed with element k
 //   at [k*W +: W].
 //
-//   Latency: y for an input accepted at cycle T is valid at cycle T + 2N - 1.
+//   Latency: y for an input accepted at cycle T is valid at cycle T + 2N.
 //------------------------------------------------------------------------------
 module systolic4x4 #(
     parameter N      = 4,
@@ -53,7 +53,7 @@ module systolic4x4 #(
     output wire                busy       // a valid vector is entering or in flight
 );
 
-    localparam LAT = 2*N - 1;
+    localparam LAT = 2*N;
 
     // a[r][c] : activation into PE(r,c)  (a[r][N] is the unused right edge)
     // p[r][c] : partial sum into PE(r,c) (p[N][c] is the bottom output)
@@ -122,11 +122,15 @@ endmodule
 
 //------------------------------------------------------------------------------
 // Processing element
-//   p_out <= p_in + a_in * weight   (signed MAC)
-//   a_out <= a_in                   (pass activation right)
+//   a_reg <= a_in                   (register the activation on entry)
+//   p_out <= p_in + a_reg * weight  (signed MAC)
+//   a_out  = a_reg                  (pass activation right)
 //   w_out <= w_in when w_shift      (shadow weight shift chain)
 //   weight <= w_out when w_load     (latch shadow into active weight)
 //   use_dsp maps the MAC (multiply + accumulate + p_out register) to a DSP58.
+//   a_reg sits on the receiving side of the PE boundary so it can map to the
+//   DSP58 A register; the PE-to-PE path is then a wire into a flop, which
+//   keeps timing when PEs are pre-implemented with DONT_TOUCH boundaries.
 //------------------------------------------------------------------------------
 (* use_dsp = "yes" *)
 module pe #(
@@ -140,24 +144,27 @@ module pe #(
     input  wire                     w_load,
     output reg  signed [DATA_W-1:0] w_out,
     input  wire signed [DATA_W-1:0] a_in,
-    output reg  signed [DATA_W-1:0] a_out,
+    output wire signed [DATA_W-1:0] a_out,
     input  wire signed [ACC_W-1:0]  p_in,
     output reg  signed [ACC_W-1:0]  p_out
 );
 
     reg signed [DATA_W-1:0] weight;
+    reg signed [DATA_W-1:0] a_reg;
+
+    assign a_out = a_reg;
 
     always @(posedge clk) begin
         if (rst) begin
             w_out  <= {DATA_W{1'b0}};
             weight <= {DATA_W{1'b0}};
-            a_out  <= {DATA_W{1'b0}};
+            a_reg  <= {DATA_W{1'b0}};
             p_out  <= {ACC_W{1'b0}};
         end else begin
             if (w_shift) w_out  <= w_in;
             if (w_load)  weight <= w_out;
-            a_out <= a_in;
-            p_out <= p_in + a_in * weight;
+            a_reg <= a_in;
+            p_out <= p_in + a_reg * weight;
         end
     end
 
